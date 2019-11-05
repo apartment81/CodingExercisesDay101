@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ColorMatch</string>
+    <string name="points_t">Points:</string>
+</resources>
