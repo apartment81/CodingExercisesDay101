@@ -2,6 +2,7 @@ package com.example.mirodone.colormatch;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -107,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
                         mHandler.postDelayed(mRunnable, 100);
                     } else {
                         iv_button.setEnabled(false);
-                      //  Toast.makeText(MainActivity.this, "Game Over !", Toast.LENGTH_SHORT).show();
+                     //  Toast.makeText(MainActivity.this, "Game Over !", Toast.LENGTH_SHORT).show();
 
-                        AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+                       /* AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
                         adb.setMessage("Game Over ! \nPoints: " + currentPoints)
                                 .setCancelable(false)
                                 .setPositiveButton("NEW", new DialogInterface.OnClickListener() {
@@ -127,7 +130,17 @@ public class MainActivity extends AppCompatActivity {
                         });
 
                         AlertDialog alertDialog = adb.create();
-                        alertDialog.show();
+                        alertDialog.show();*/
+
+                        SharedPreferences preferences = getSharedPreferences("PREF", 0);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt("lastBest" , currentPoints);
+                        editor.apply();
+
+                        Intent intent  = new Intent(getApplicationContext(), BestActivity.class);
+                        startActivity(intent);
+                        finish();
+
                     }
                 }
             }
